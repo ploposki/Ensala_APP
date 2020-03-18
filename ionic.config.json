@@ -1,0 +1,7 @@
+{
+  "name": "Ensala_APP",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
