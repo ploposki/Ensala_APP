@@ -3,7 +3,7 @@ import { MenuController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from '../api/user.service';
 import { Storage } from '@ionic/storage';
-import { timer, of } from 'rxjs';
+import { Subscription, timer, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Component({
@@ -21,6 +21,8 @@ export class LoginPage implements OnInit {
     private storage: Storage
   ) { }
 
+  public subscriptions: Subscription[] = [];
+
   public name = '';
   public password = '';
   public isSubmit = false;
@@ -37,21 +39,28 @@ export class LoginPage implements OnInit {
 
   ionViewWillLeave() {
     this.isSubmit = false;
+    this.subscriptions.forEach(it => it.unsubscribe());
   }
 
   onSubmit() {
     this.isSubmit = true;
-    
-    this.userService.User({user: {name: this.name, password: this.password}}).subscribe(data => {
+
+    this.subscriptions.push(timer(5000).subscribe(() => {
+      this.AlertMessage('Sessão expirada');
+      this.router.navigate(['/login']);
+      this.subscriptions.forEach(it => it.unsubscribe());
+    }));
+
+    this.subscriptions.push(this.userService.User({user: {name: this.name, password: this.password}}).subscribe(data => {
       this.storage.set('user', data);
-      timer(500).subscribe(() => {
+      this.subscriptions.push(timer(500).subscribe(() => {
         if (data['response']) {
           this.router.navigate(['/search']);
         } else {
           this.AlertMessage('Usuário ou senha inválidos');
         }
-      });
-    });
+      }));
+    }));
   }
 
   async AlertMessage(data) {
