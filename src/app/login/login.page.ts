@@ -59,6 +59,7 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/search']);
         } else {
           this.AlertMessage('Usuário ou senha inválidos');
+          this.subscriptions.forEach(it => it.unsubscribe());
         }
       }));
     }));
