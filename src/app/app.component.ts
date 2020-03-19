@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { timer } from 'rxjs';
 
@@ -26,6 +25,11 @@ export class AppComponent {
       url: '/room',
       icon: 'golf'
     },
+    {
+      title: 'Sair',
+      url: '/login',
+      icon: 'exit'
+    }
   ];
 
   public appPagesAdmin = [
@@ -44,13 +48,17 @@ export class AppComponent {
       url: '/room',
       icon: 'golf'
     },
+    {
+      title: 'Sair',
+      url: '/login',
+      icon: 'exit'
+    }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router,
     private storage: Storage
   ) {
     this.initializeApp();
@@ -66,14 +74,13 @@ export class AppComponent {
   }
 
   Loop() {
-    const header = timer(1000, 1000).subscribe(() => {
+    const header = timer(1000, 2500).subscribe(() => {
       this.storage.get('user').then(u => {
         if (u === null) {
           this.name = '';
         }
         else {
           this.name = u.user.name;
-          header.unsubscribe();
         }
       });
     });
