@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.storage.set('user', null);
     this.menuController.enable(false, 'main');
     this.menuController.enable(false, 'admin');
   }

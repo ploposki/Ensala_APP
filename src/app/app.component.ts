@@ -74,7 +74,7 @@ export class AppComponent {
   }
 
   Loop() {
-    const header = timer(1000, 2500).subscribe(() => {
+    timer(1000, 2500).subscribe(() => {
       this.storage.get('user').then(u => {
         if (u === null) {
           this.name = '';

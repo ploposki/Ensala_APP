@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-room',
@@ -8,12 +7,8 @@ import { MenuController } from '@ionic/angular';
 })
 export class RoomPage implements OnInit {
 
-  constructor(
-    private menuController: MenuController
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.menuController.enable(true, 'admin');
-  }
+  ngOnInit() { }
 
 }
