@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   public selectedIndex = 0;
+  public name = '';
+
   public appPagesMain = [
     {
       title: 'Minhas Reservas',
@@ -45,7 +49,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router: Router,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
@@ -54,6 +60,22 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.storage.set('user', null);
+      this.Loop();
+    });
+  }
+
+  Loop() {
+    const header = timer(1000, 1000).subscribe(() => {
+      this.storage.get('user').then(u => {
+        if (u === null) {
+          this.name = '';
+        }
+        else {
+          this.name = u.user.name;
+          header.unsubscribe();
+        }
+      });
     });
   }
 

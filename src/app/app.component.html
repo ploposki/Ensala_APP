@@ -3,8 +3,8 @@
     <ion-menu contentId="main-content" type="overlay" menuId="main">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>main</ion-list-header>
-          <ion-note>main</ion-note>
+          <ion-list-header>{{ name }}</ion-list-header>
+          <ion-note>acadêmico</ion-note>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPagesMain; let i = index">
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
@@ -17,8 +17,8 @@
     <ion-menu contentId="main-content" type="overlay" menuId="admin">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>admin</ion-list-header>
-          <ion-note>admin</ion-note>
+          <ion-list-header>{{ name }}</ion-list-header>
+          <ion-note>administrador</ion-note>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPagesAdmin; let i = index">
             <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
