@@ -15,6 +15,18 @@ export class SearchPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.Navbar();
+    this.menuController.enable(false, 'admin');
+    this.menuController.enable(false, 'main');
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false, 'admin');
+    this.menuController.enable(false, 'main');
+    this.Navbar();
+  }
+
+  Navbar() {
     this.storage.get('user').then(u => {
       if (u.user.admin_access === 1) {
         this.menuController.enable(true, 'admin');
