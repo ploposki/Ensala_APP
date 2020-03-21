@@ -8,5 +8,20 @@
 </ion-header>
 
 <ion-content>
-
+  <div class="box" (keyup.enter)="onSubmit()">
+    <ion-icon name="person-circle"></ion-icon>
+    <ion-item>
+      <ion-checkbox color="primary" slot="start" [(ngModel)]="access"></ion-checkbox>
+      <ion-label>Acesso Administrador</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Novo Usuário</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Criar Senha</ion-label>
+      <ion-input [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-button (click)="onSubmit()" [disabled]="isSubmit">CADASTRAR</ion-button>
+  </div>
 </ion-content>
