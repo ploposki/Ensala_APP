@@ -9,4 +9,57 @@
 
 <ion-content>
 
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Sala:</ion-label>
+        <ion-select okText="OK" cancelText="CANCELAR" [(ngModel)]="event.title">
+          <div *ngFor="let r of room">
+            <ion-select-option [value]=r[1]>{{r[1]}}</ion-select-option>
+          </div>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Data:</ion-label>
+        <ion-datetime 
+          displayFormat="DD/MM/YYYY HH:mm" 
+          pickerFormat="DDDD MMM YYYY HH" 
+          [(ngModel)]="event.startTime" 
+          monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"
+          max="2050"
+          done-text="OK"
+          cancel-text="CANCELAR"
+        ></ion-datetime>
+      </ion-item>
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Reservar</ion-button>
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-row>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'medium' : 'primary'" (click)="changeMode('month')">Mes</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'week' ? 'medium' : 'primary'" (click)="changeMode('week')">Semana</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'medium' : 'primary'" (click)="changeMode('day')">Dia</ion-button>
+    </ion-col>
+  </ion-row>
+ 
+  <calendar 
+    [eventSource]="eventSource" 
+    [calendarMode]="calendar.mode" 
+    [currentDate]="calendar.currentDate"
+    [locale]="calendar.locale"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)" 
+    startHour="6"
+    endHour="23"
+    step="30"
+    startingDayWeek="1"
+  >
+  </calendar>
+ 
 </ion-content>

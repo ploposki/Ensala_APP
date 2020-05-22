@@ -23,8 +23,8 @@ export class LoginPage implements OnInit {
 
   public subscriptions: Subscription[] = [];
 
-  public name = '';
-  public password = '';
+  public name = 'admin';
+  public password = '12345678';
   public isSubmit = false;
 
   ngOnInit() {
