@@ -148,6 +148,25 @@ export class RoomPage implements OnInit {
     this.subscriptions.push(this.searchService.Search({search: {limit: 100}}).subscribe(data => {
       this.room = data[`search`][`rooms`];
       this.reserves = data[`search`][`reserves`];
+      this.eventSource = [];
+
+      this.reserves.forEach(rv => {
+        this.room.forEach(rm => {
+          if (rv[2] === rm[0]) {
+            const time = new Date(rv[3]);
+            
+            let event = {
+              title: rm[1],
+              startTime: new Date(rv[3]),
+              endTime: new Date(time.setHours(time.getHours() + 1)),
+            }
+
+            this.eventSource.push(event);
+            this.myCal.loadEvents();
+            this.resetEvent();
+          }
+        });
+      });
     }));
   }
 
@@ -177,12 +196,12 @@ export class RoomPage implements OnInit {
 
       this.reserves.forEach(rv => {
         this.room.forEach(rm => {
-          if (rv[1] === rm[0]) {
-            const time = new Date(rv[2]);
+          if (rv[2] === rm[0]) {
+            const time = new Date(rv[3]);
             
             let event = {
               title: rm[1],
-              startTime: new Date(rv[2]),
+              startTime: new Date(rv[3]),
               endTime: new Date(time.setHours(time.getHours() + 1)),
             }
 
