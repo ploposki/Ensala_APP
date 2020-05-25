@@ -27,7 +27,7 @@ export class RoomPage implements OnInit {
   viewTitle;
  
   calendar = {
-    mode: 'week',
+    mode: 'month',
     locale: 'en-GB',
     currentDate: new Date(),
   };
@@ -44,6 +44,8 @@ export class RoomPage implements OnInit {
   ) { }
 
   public subscriptions: Subscription[] = [];
+
+  public value = '50px';
 
   public user;
   public room;
@@ -73,8 +75,8 @@ export class RoomPage implements OnInit {
 
   addEvent() {
     if (format(new Date(this.event.startTime), 'yyyy-MM-dd HH:mm:ss') > format(new Date(), 'yyyy-MM-dd HH:59:59') &&
-        format(new Date(this.event.startTime), 'yyyy-MM-dd HH:mm:ss') >= format(new Date(), 'yyyy-MM-dd 06:00:00') &&
-        format(new Date(this.event.startTime), 'yyyy-MM-dd HH:mm:ss') <= format(new Date(), 'yyyy-MM-dd 10:00:00')){
+        format(new Date(this.event.startTime), 'HH:mm:ss') >= format(new Date(), '06:00:00') &&
+        format(new Date(this.event.startTime), 'HH:mm:ss') <= format(new Date(), '22:00:00')){
       const reserveDate = format(new Date(this.event.startTime), 'yyyy-MM-dd HH:00:00');
       let roomId;
 
@@ -109,6 +111,13 @@ export class RoomPage implements OnInit {
   
   changeMode(mode) {
     this.calendar.mode = mode;
+
+    if (mode === 'month') {
+      this.value = '50px';
+    }
+    else {
+      this.value = '';
+    }
   }
   
   onViewTitleChanged(title) {
