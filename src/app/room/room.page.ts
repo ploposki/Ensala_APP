@@ -50,6 +50,9 @@ export class RoomPage implements OnInit {
   public user;
   public room;
   public reserves;
+
+  public resultDate;
+  public resultRoom;
  
   ngOnInit() {
     this.resetEvent();
@@ -74,14 +77,14 @@ export class RoomPage implements OnInit {
   }
 
   addEvent() {
-    if (format(new Date(this.event.startTime), 'yyyy-MM-dd HH:mm:ss') > format(new Date(), 'yyyy-MM-dd HH:59:59') &&
-        format(new Date(this.event.startTime), 'HH:mm:ss') >= format(new Date(), '06:00:00') &&
-        format(new Date(this.event.startTime), 'HH:mm:ss') <= format(new Date(), '22:00:00')){
-      const reserveDate = format(new Date(this.event.startTime), 'yyyy-MM-dd HH:00:00');
+    if (format(new Date(this.resultDate), 'yyyy-MM-dd HH:mm:ss') > format(new Date(), 'yyyy-MM-dd HH:59:59') &&
+        format(new Date(this.resultDate), 'HH:mm:ss') >= format(new Date(), '06:00:00') &&
+        format(new Date(this.resultDate), 'HH:mm:ss') <= format(new Date(), '22:00:00')){
+      const reserveDate = format(new Date(this.resultDate), 'yyyy-MM-dd HH:00:00');
       let roomId;
 
       this.room.forEach(rm => {
-        if (rm[1] === this.event.title) {
+        if (rm[1] === this.resultRoom) {
           roomId = rm[0]
         }
       });
@@ -146,7 +149,6 @@ export class RoomPage implements OnInit {
 
   Update() {
     this.subscriptions.push(this.searchService.Search({search: {limit: 100}}).subscribe(data => {
-      this.room = data[`search`][`rooms`];
       this.reserves = data[`search`][`reserves`];
       this.eventSource = [];
 
@@ -191,6 +193,8 @@ export class RoomPage implements OnInit {
 
   Add() {
     this.subscriptions.push(this.searchService.Search({search: {limit: 100}}).subscribe(data => {
+      this.resultDate = new Date(format(new Date(), 'yyyy-MM-dd HH:00:00'));
+
       this.room = data[`search`][`rooms`];
       this.reserves = data[`search`][`reserves`];
 

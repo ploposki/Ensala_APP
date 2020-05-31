@@ -13,7 +13,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label>Sala:</ion-label>
-        <ion-select okText="OK" cancelText="CANCELAR" [(ngModel)]="event.title">
+        <ion-select okText="OK" cancelText="CANCELAR" [(ngModel)]="resultRoom">
           <div *ngFor="let r of room">
             <ion-select-option [value]=r[1]>{{r[1]}}</ion-select-option>
           </div>
@@ -24,14 +24,14 @@
         <ion-datetime 
           displayFormat="DD/MM/YYYY HH:00" 
           pickerFormat="DDDD MMM YYYY HH" 
-          [(ngModel)]="event.startTime" 
+          [(ngModel)]="resultDate" 
           monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"
           max="2050"
           done-text="OK"
           cancel-text="CANCELAR"
         ></ion-datetime>
       </ion-item>
-      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Reservar</ion-button>
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="resultRoom == ''">Reservar</ion-button>
     </ion-card-content>
   </ion-card>
  

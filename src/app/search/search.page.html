@@ -8,5 +8,21 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-searchbar [(ngModel)]=search (keyup)="Search($event)" placeholder="Buscar"></ion-searchbar>
+  <ion-grid *ngIf="!result">
+    <ion-row *ngFor="let r of reserves">
+      <ion-col size="2"><span><b>N°{{r[0]}}</b></span></ion-col>
+      <ion-col><span>Sala {{r[2]}}</span></ion-col>
+      <ion-col><span>{{r[8]}}</span></ion-col>
+      <ion-col><span>{{r[7]}}</span></ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="result">
+    <ion-row *ngFor="let r of result">
+      <ion-col size="2"><span><b>N°{{r[0]}}</b></span></ion-col>
+      <ion-col><span>Sala {{r[2]}}</span></ion-col>
+      <ion-col><span>{{r[8]}}</span></ion-col>
+      <ion-col><span>{{r[7]}}</span></ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
