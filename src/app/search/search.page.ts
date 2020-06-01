@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { SearchService } from '../api/search.service';
+import { CancelService } from '../api/cancel.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Subscription, timer, of } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import { format } from 'date-fns';
@@ -19,6 +20,7 @@ export class SearchPage implements OnInit {
     private alertController: AlertController,
     private menuController: MenuController,
     private searchService: SearchService,
+    private cancelService: CancelService,
     private router: Router,
     private storage: Storage
   ) { }
@@ -94,6 +96,27 @@ export class SearchPage implements OnInit {
   Exit() {
     this.storage.clear();
     this.router.navigate(['/login']);
+  }
+
+  async Selected(event) {
+  
+    const alert = await this.alertController.create({
+      header: event[2],
+      message: event[8] + '<br><br>' + event[7],
+      buttons: [
+        {
+          text: 'CANCELAR RESERVA',
+          handler: () => {
+            const at = format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+            this.subscriptions.push(this.cancelService.Cancel({room: {id_reserve: event[0], canceled_at: at}}).subscribe(() => {
+              this.AlertMessage('Reserva cancelada');
+              this.Update();
+            }));
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   async Search(event) {

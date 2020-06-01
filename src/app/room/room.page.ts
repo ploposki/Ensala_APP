@@ -45,7 +45,7 @@ export class RoomPage implements OnInit {
 
   public subscriptions: Subscription[] = [];
 
-  public value = '50px';
+  public value = '60px';
 
   public user;
   public room;
@@ -116,10 +116,10 @@ export class RoomPage implements OnInit {
     this.calendar.mode = mode;
 
     if (mode === 'month') {
-      this.value = '50px';
+      this.value = '60px';
     }
     else {
-      this.value = '';
+      this.value = '10px';
     }
   }
   

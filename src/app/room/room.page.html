@@ -35,12 +35,16 @@
     </ion-card-content>
   </ion-card>
  
-  <ion-row>
+  <ion-row style="position: absolute; z-index: 999999">
     <ion-col size="6">
-      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'medium' : 'primary'" (click)="changeMode('month')">Calendário</ion-button>
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'medium' : 'primary'" (click)="changeMode('month')">
+        <span style="width: 300px">Calendário</span>
+      </ion-button>
     </ion-col>
     <ion-col size="6">
-      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'medium' : 'primary'" (click)="changeMode('day')">Cronograma</ion-button>
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'medium' : 'primary'" (click)="changeMode('day')">
+        <span style="width: 300px">Cronograma</span>
+      </ion-button>
     </ion-col>
   </ion-row>
  
